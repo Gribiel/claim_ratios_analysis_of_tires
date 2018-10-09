@@ -6,8 +6,21 @@
 # 
 #    http://shiny.rstudio.com/
 #
-
+if (!require(tidyr)) { install.packages("tidyr") }
+if (!require(plyr)) { install.packages("plyr") }
+if (!require(zoo)) { install.packages("zoo") }
+if (!require(lubridate)) { install.packages("lubridate") }
+if (!require(dplyr)) { install.packages("dplyr") }
+if (!require(ggplot2)) { install.packages("ggplot2") }
 library(shiny)
+library(tidyr)
+library(plyr)
+library(zoo)
+library(lubridate)
+library(dplyr)
+library(data.table)
+library(ggplot2)
+library(ggthemes)
 options(shiny.maxRequestSize = 100*1024^2)
 shinyServer(function(input, output) {
   
