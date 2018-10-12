@@ -123,8 +123,8 @@ shinyServer(function(input, output) {
         claim_data$生产日期 = as.Date(claim_data$生产日期)
         claim_data = claim_data[which(claim_data$生产日期 >= startdate1 & 
                                         claim_data$生产日期 <= enddate1 &
-                                        claim_data$理赔日期 >= startdate3 & 
-                                        claim_data$理赔日期 <= enddate3),]
+                                        claim_data$理赔日期 >= startdate2 & 
+                                        claim_data$理赔日期 <= enddate2),]
         
         int <- interval(ymd(claim_data$生产日期), ymd(claim_data$理赔日期))
         claim_data$经过月 <- time_length(int, "month")
@@ -176,7 +176,11 @@ shinyServer(function(input, output) {
         newdata$理赔率 <- round(newdata$理赔率, 2)
         newdata$生产日期 <- format(newdata$生产日期, format = "%Y%m")
         newdata$生产日期 = as.character(newdata$生产日期)
-        newdata = newdata[newdata$理赔率 > 0 & newdata$经过月 > 0 & newdata$理赔率 < 10,]
+        newdata = newdata[newdata$理赔率 >= 0 & newdata$经过月 >= 0 & newdata$理赔率 <= 10,]
+        newdata = newdata %>% group_by(newdata$生产日期) %>% mutate(count=n())
+        newdata = newdata[newdata$count != 1,]
+        newdata = subset(newdata, select = -count)
+        newdata = newdata[,-6]
       })
     }))
   
@@ -274,7 +278,11 @@ shinyServer(function(input, output) {
     newdata_tt$理赔率 = round(newdata_tt$理赔率, 2)
     newdata_tt$生产日期 = format(newdata_tt$生产日期, format = "%Y%m")
     newdata_tt$生产日期 = as.character(newdata_tt$生产日期)
-    newdata_tt = newdata_tt[newdata_tt$理赔率 <= 10 & newdata_tt$理赔率 > 0,]
+    newdata_tt = newdata_tt[newdata_tt$经过月 >= 0 & newdata_tt$理赔率 >= 0 & newdata_tt$理赔率 <= 10,]
+    newdata_tt = newdata_tt %>% group_by(newdata_tt$生产日期) %>% mutate(count=n())
+    newdata_tt = newdata_tt[newdata_tt$count != 1,]
+    newdata_tt = subset(newdata_tt, select = -count)
+    newdata_tt = newdata_tt[,-6]
     })
   }))
   
@@ -375,7 +383,11 @@ shinyServer(function(input, output) {
     newdata_tl$理赔率 = round(newdata_tl$理赔率, 2)
     newdata_tl$生产日期 = format(newdata_tl$生产日期, format = "%Y%m")
     newdata_tl$生产日期 = as.character(newdata_tl$生产日期)
-    newdata_tl = newdata_tl[newdata_tl$理赔率 <= 10 & newdata_tl$理赔率 > 0,]
+    newdata_tl = newdata_tl[newdata_tl$经过月 >= 0 & newdata_tl$理赔率 >= 0 & newdata_tl$理赔率 <= 10,]
+    newdata_tl = newdata_tl %>% group_by(newdata_tl$生产日期) %>% mutate(count=n())
+    newdata_tl = newdata_tl[newdata_tl$count != 1,]
+    newdata_tl = subset(newdata_tl, select = -count)
+    newdata_tl = newdata_tl[,-6]
       })
   }))
   
@@ -478,7 +490,11 @@ shinyServer(function(input, output) {
       newdata$理赔率 <- round(newdata$理赔率, 2)
       newdata$生产日期 <- format(newdata$生产日期, format = "%Y%m")
       newdata$生产日期 = as.character(newdata$生产日期)
-      newdata = newdata[newdata$理赔率 > 0,]
+      newdata = newdata[newdata$经过月 >= 0 & newdata$理赔率 >= 0  & newdata$理赔率 <= 10,]
+      newdata = newdata %>% group_by(newdata$生产日期) %>% mutate(count=n())
+      newdata = newdata[newdata$count != 1,]
+      newdata = subset(newdata, select = -count)
+      newdata = newdata[,-6]
       })
     }))
   
@@ -566,7 +582,11 @@ shinyServer(function(input, output) {
         newdata_tt$理赔率 = round(newdata_tt$理赔率, 2)
         newdata_tt$生产日期 = format(newdata_tt$生产日期, format = "%Y%m")
         newdata_tt$生产日期 = as.character(newdata_tt$生产日期)
-        newdata_tt = newdata_tt[newdata_tt$理赔率 <= 10 & newdata_tt$理赔率 > 0,]
+        newdata_tt = newdata_tt[newdata_tt$经过月 >= 0 & newdata_tt$理赔率 >= 0 & newdata_tt$理赔率 <= 10,]
+        newdata_tt = newdata_tt %>% group_by(newdata_tt$生产日期) %>% mutate(count=n())
+        newdata_tt = newdata_tt[newdata_tt$count != 1,]
+        newdata_tt = subset(newdata_tt, select = -count)
+        newdata_tt = newdata_tt[,-6]
       })
       }))
   
@@ -654,7 +674,11 @@ shinyServer(function(input, output) {
         newdata_tt$理赔率 = round(newdata_tt$理赔率, 2)
         newdata_tt$生产日期 = format(newdata_tt$生产日期, format = "%Y%m")
         newdata_tt$生产日期 = as.character(newdata_tt$生产日期)
-        newdata_tt = newdata_tt[newdata_tt$理赔率 <= 10 & newdata_tt$理赔率 > 0,]
+        newdata_tt = newdata_tt[newdata_tt$经过月 >= 0 & newdata_tt$理赔率 >= 0 & newdata_tt$理赔率 <= 10,]
+        newdata_tt = newdata_tt %>% group_by(newdata_tt$生产日期) %>% mutate(count=n())
+        newdata_tt = newdata_tt[newdata_tt$count != 1,]
+        newdata_tt = subset(newdata_tt, select = -count)
+        newdata_tt = newdata_tt[,-6]
       })
     }))
   
@@ -742,7 +766,11 @@ shinyServer(function(input, output) {
         newdata_tt$理赔率 = round(newdata_tt$理赔率, 2)
         newdata_tt$生产日期 = format(newdata_tt$生产日期, format = "%Y%m")
         newdata_tt$生产日期 = as.character(newdata_tt$生产日期)
-        newdata_tt = newdata_tt[newdata_tt$理赔率 <= 10 & newdata_tt$理赔率 > 0,]
+        newdata_tt = newdata_tt[newdata_tt$经过月 >= 0 & newdata_tt$理赔率 >= 0 & newdata_tt$理赔率 <= 10,]
+        newdata_tt = newdata_tt %>% group_by(newdata_tt$生产日期) %>% mutate(count=n())
+        newdata_tt = newdata_tt[newdata_tt$count != 1,]
+        newdata_tt = subset(newdata_tt, select = -count)
+        newdata_tt = newdata_tt[,-6]
       })
     }))
   
@@ -841,7 +869,11 @@ shinyServer(function(input, output) {
         newdata_tt$理赔率 = round(newdata_tt$理赔率, 2)
         newdata_tt$生产日期 = format(newdata_tt$生产日期, format = "%Y%m")
         newdata_tt$生产日期 = as.character(newdata_tt$生产日期)
-        newdata_tt = newdata_tt[newdata_tt$理赔率 <= 10 & newdata_tt$理赔率 > 0,]
+        newdata_tt = newdata_tt[newdata_tt$经过月 >= 0 & newdata_tt$理赔率 >= 0 & newdata_tt$理赔率 <= 10,]
+        newdata_tt = newdata_tt %>% group_by(newdata_tt$生产日期) %>% mutate(count=n())
+        newdata_tt = newdata_tt[newdata_tt$count != 1,]
+        newdata_tt = subset(newdata_tt, select = -count)
+        newdata_tt = newdata_tt[,-6]
       })
     }))
   
@@ -865,6 +897,7 @@ shinyServer(function(input, output) {
       enddate2 = input$dateInput4
       startdate3 = input$dateInput5
       enddate3 = input$dateInput6
+      
       claim_data <- claim_data[,c("年", "月", "生产厂", "生产月", "DOT年号")]
       claim_data <- unite(claim_data, 理赔日期, 年, 月, sep = "", remove = TRUE)
       claim_data <- unite(claim_data, 生产日期, DOT年号, 生产月, sep = "", remove = TRUE)
@@ -876,8 +909,8 @@ shinyServer(function(input, output) {
       claim_data$生产日期 = as.Date(claim_data$生产日期)
       claim_data = claim_data[which(claim_data$生产日期 >= startdate1 & 
                                       claim_data$生产日期 <= enddate1 &
-                                      claim_data$理赔日期 >= startdate3 & 
-                                      claim_data$理赔日期 <= enddate3),]
+                                      claim_data$理赔日期 >= startdate2 & 
+                                      claim_data$理赔日期 <= enddate2),]
       
       int <- interval(ymd(claim_data$生产日期), ymd(claim_data$理赔日期))
       claim_data$经过月 <- time_length(int, "month")
@@ -928,7 +961,11 @@ shinyServer(function(input, output) {
       newdata$理赔率 <- round(newdata$理赔率, 2)
       newdata$生产日期 <- format(newdata$生产日期, format = "%Y%m")
       newdata$生产日期 = as.character(newdata$生产日期)
-      newdata = newdata[newdata$理赔率 > 0 & newdata$经过月 > 0 & newdata$理赔率 < 10,]
+      newdata = newdata[newdata$经过月 >= 0 & newdata$理赔率 >= 0 & newdata$理赔率 < 10,]
+      newdata = newdata %>% group_by(newdata$生产日期) %>% mutate(count=n())
+      newdata = newdata[newdata$count != 1,]
+      newdata = subset(newdata, select = -count)
+      newdata = newdata[,-6]
       bg_col = rgb(218/255,230/255,237/255)
       blue1 = rgb(0/255,76/255,102/255)
       blue2 = rgb(0,156/255,215/255)
@@ -945,7 +982,7 @@ shinyServer(function(input, output) {
         scale_fill_manual(values = c(blue1, blue2 , blue3)) +
         theme(title = element_text(family = "GB1", size = rel(1.5), color = "black",
                                    lineheight = 0.2),                     
-              plot.title = element_text(hjust = 0.5, size = rel(2), face = "bold"),
+              plot.title = element_text(hjust = 0.5, size = rel(1), face = "bold"),
               legend.position = 'top',
               legend.title = element_blank(),
               legend.key = element_blank(),
@@ -1058,7 +1095,11 @@ shinyServer(function(input, output) {
     newdata_tt$理赔率 = round(newdata_tt$理赔率, 2)
     newdata_tt$生产日期 = format(newdata_tt$生产日期, format = "%Y%m")
     newdata_tt$生产日期 = as.character(newdata_tt$生产日期)
-    newdata_tt = newdata_tt[newdata_tt$理赔率 <= 10 & newdata_tt$理赔率 > 0,]
+    newdata_tt = newdata_tt[newdata_tt$经过月 >= 0 & newdata_tt$理赔率 >= 0 & newdata_tt$理赔率 <= 10,]
+    newdata_tt = newdata_tt %>% group_by(newdata_tt$生产日期) %>% mutate(count=n())
+    newdata_tt = newdata_tt[newdata_tt$count != 1,]
+    newdata_tt = subset(newdata_tt, select = -count)
+    newdata_tt = newdata_tt[,-6]
     bg_col = rgb(218/255,230/255,237/255)
     blue1 = rgb(0/255,76/255,102/255)
     blue2 = rgb(0,156/255,215/255)
@@ -1075,7 +1116,7 @@ shinyServer(function(input, output) {
       scale_fill_manual(values = c(blue1, blue2 , blue3)) +
       theme(title = element_text(family = "GB1", size = rel(1.5), color = "black",
                                  lineheight = 0.2),                     
-            plot.title = element_text(hjust = 0.5, size = rel(2), face = "bold"),
+            plot.title = element_text(hjust = 0.5, size = rel(1), face = "bold"),
             legend.position = 'top',
             legend.title = element_blank(),
             legend.key = element_blank(),
@@ -1192,7 +1233,11 @@ shinyServer(function(input, output) {
     newdata_tl$理赔率 = round(newdata_tl$理赔率, 2)
     newdata_tl$生产日期 = format(newdata_tl$生产日期, format = "%Y%m")
     newdata_tl$生产日期 = as.character(newdata_tl$生产日期)
-    newdata_tl = newdata_tl[newdata_tl$理赔率 <= 10 & newdata_tl$理赔率 > 0,]
+    newdata_tl = newdata_tl[newdata_tl$经过月 >= 0 & newdata_tl$理赔率 >= 0 & newdata_tl$理赔率 <= 10,]
+    newdata_tl = newdata_tl %>% group_by(newdata_tl$生产日期) %>% mutate(count=n())
+    newdata_tl = newdata_tl[newdata_tl$count != 1,]
+    newdata_tl = subset(newdata_tl, select = -count)
+    newdata_tl = newdata_tl[,-6]
     bg_col = rgb(218/255,230/255,237/255)
     blue1 = rgb(0/255,76/255,102/255)
     blue2 = rgb(0,156/255,215/255)
@@ -1209,7 +1254,7 @@ shinyServer(function(input, output) {
       scale_fill_manual(values = c(blue1, blue2 , blue3)) +
       theme(title = element_text(family = "GB1", size = rel(1.5), color = "black",
                                  lineheight = 0.2),                     
-            plot.title = element_text(hjust = 0.5, size = rel(2), face = "bold"),
+            plot.title = element_text(hjust = 0.5, size = rel(1), face = "bold"),
             legend.position = 'top',
             legend.title = element_blank(),
             legend.key = element_blank(),
@@ -1327,7 +1372,11 @@ shinyServer(function(input, output) {
     newdata$理赔率 <- round(newdata$理赔率, 2)
     newdata$生产日期 <- format(newdata$生产日期, format = "%Y%m")
     newdata$生产日期 = as.character(newdata$生产日期)
-    newdata = newdata[newdata$理赔率 > 0,]
+    newdata = newdata[newdata$经过月 >= 0 & newdata$理赔率 >= 0 & newdata$理赔率 <= 10,]
+    newdata = newdata %>% group_by(newdata$生产日期) %>% mutate(count=n())
+    newdata = newdata[newdata$count != 1,]
+    newdata = subset(newdata, select = -count)
+    newdata = newdata[,-6]
     bg_col = rgb(218/255,230/255,237/255)
     blue1 = rgb(0/255,76/255,102/255)
     blue2 = rgb(0,156/255,215/255)
@@ -1344,7 +1393,7 @@ shinyServer(function(input, output) {
       scale_fill_manual(values = c(blue1, blue2 , blue3)) +
       theme(title = element_text(family = "GB1", size = rel(1.5), color = "black",
                                  lineheight = 0.2),                     
-            plot.title = element_text(hjust = 0.5, size = rel(2), face = "bold"),
+            plot.title = element_text(hjust = 0.5, size = rel(1), face = "bold"),
             legend.position = 'top',
             legend.title = element_blank(),
             legend.key = element_blank(),
@@ -1447,7 +1496,11 @@ shinyServer(function(input, output) {
       newdata_tt$理赔率 = round(newdata_tt$理赔率, 2)
       newdata_tt$生产日期 = format(newdata_tt$生产日期, format = "%Y%m")
       newdata_tt$生产日期 = as.character(newdata_tt$生产日期)
-      newdata_tt = newdata_tt[newdata_tt$理赔率 <= 10 & newdata_tt$理赔率 > 0,]
+      newdata_tt = newdata_tt[newdata_tt$经过月 >= 0 & newdata_tt$理赔率 >= 0 & newdata_tt$理赔率 <= 10,]
+      newdata_tt = newdata_tt %>% group_by(newdata_tt$生产日期) %>% mutate(count=n())
+      newdata_tt = newdata_tt[newdata_tt$count != 1,]
+      newdata_tt = subset(newdata_tt, select = -count)
+      newdata_tt = newdata_tt[,-6]
       bg_col = rgb(218/255,230/255,237/255)
       blue1 = rgb(0/255,76/255,102/255)
       blue2 = rgb(0,156/255,215/255)
@@ -1464,7 +1517,7 @@ shinyServer(function(input, output) {
         scale_fill_manual(values = c(blue1, blue2 , blue3)) +
         theme(title = element_text(family = "GB1", size = rel(1.5), color = "black",
                                    lineheight = 0.2),                     
-              plot.title = element_text(hjust = 0.5, size = rel(2), face = "bold"),
+              plot.title = element_text(hjust = 0.5, size = rel(1), face = "bold"),
               legend.position = 'top',
               legend.title = element_blank(),
               legend.key = element_blank(),
@@ -1567,7 +1620,11 @@ shinyServer(function(input, output) {
       newdata_tt$理赔率 = round(newdata_tt$理赔率, 2)
       newdata_tt$生产日期 = format(newdata_tt$生产日期, format = "%Y%m")
       newdata_tt$生产日期 = as.character(newdata_tt$生产日期)
-      newdata_tt = newdata_tt[newdata_tt$理赔率 <= 10 & newdata_tt$理赔率 > 0,]
+      newdata_tt = newdata_tt[newdata_tt$经过月 >= 0 & newdata_tt$理赔率 >= 0 & newdata_tt$理赔率 <= 10,]
+      newdata_tt = newdata_tt %>% group_by(newdata_tt$生产日期) %>% mutate(count=n())
+      newdata_tt = newdata_tt[newdata_tt$count != 1,]
+      newdata_tt = subset(newdata_tt, select = -count)
+      newdata_tt = newdata_tt[,-6]
       bg_col = rgb(218/255,230/255,237/255)
       blue1 = rgb(0/255,76/255,102/255)
       blue2 = rgb(0,156/255,215/255)
@@ -1584,7 +1641,7 @@ shinyServer(function(input, output) {
         scale_fill_manual(values = c(blue1, blue2 , blue3)) +
         theme(title = element_text(family = "GB1", size = rel(1.5), color = "black",
                                    lineheight = 0.2),                     
-              plot.title = element_text(hjust = 0.5, size = rel(2), face = "bold"),
+              plot.title = element_text(hjust = 0.5, size = rel(1), face = "bold"),
               legend.position = 'top',
               legend.title = element_blank(),
               legend.key = element_blank(),
@@ -1687,7 +1744,11 @@ shinyServer(function(input, output) {
       newdata_tt$理赔率 = round(newdata_tt$理赔率, 2)
       newdata_tt$生产日期 = format(newdata_tt$生产日期, format = "%Y%m")
       newdata_tt$生产日期 = as.character(newdata_tt$生产日期)
-      newdata_tt = newdata_tt[newdata_tt$理赔率 <= 10 & newdata_tt$理赔率 > 0,]
+      newdata_tt = newdata_tt[newdata_tt$经过月 >= 0 & newdata_tt$理赔率 >= 0 & newdata_tt$理赔率 <= 10,]
+      newdata_tt = newdata_tt %>% group_by(newdata_tt$生产日期) %>% mutate(count=n())
+      newdata_tt = newdata_tt[newdata_tt$count != 1,]
+      newdata_tt = subset(newdata_tt, select = -count)
+      newdata_tt = newdata_tt[,-6]
       bg_col = rgb(218/255,230/255,237/255)
       blue1 = rgb(0/255,76/255,102/255)
       blue2 = rgb(0,156/255,215/255)
@@ -1704,7 +1765,7 @@ shinyServer(function(input, output) {
         scale_fill_manual(values = c(blue1, blue2 , blue3)) +
         theme(title = element_text(family = "GB1", size = rel(1.5), color = "black",
                                    lineheight = 0.2),                     
-              plot.title = element_text(hjust = 0.5, size = rel(2), face = "bold"),
+              plot.title = element_text(hjust = 0.5, size = rel(1), face = "bold"),
               legend.position = 'top',
               legend.title = element_blank(),
               legend.key = element_blank(),
@@ -1818,7 +1879,11 @@ shinyServer(function(input, output) {
       newdata_tt$理赔率 = round(newdata_tt$理赔率, 2)
       newdata_tt$生产日期 = format(newdata_tt$生产日期, format = "%Y%m")
       newdata_tt$生产日期 = as.character(newdata_tt$生产日期)
-      newdata_tt = newdata_tt[newdata_tt$理赔率 <= 10 & newdata_tt$理赔率 > 0,]
+      newdata_tt = newdata_tt[newdata_tt$经过月 >= 0 & newdata_tt$理赔率 >= 0 & newdata_tt$理赔率 <= 10,]
+      newdata_tt = newdata_tt %>% group_by(newdata_tt$生产日期) %>% mutate(count=n())
+      newdata_tt = newdata_tt[newdata_tt$count != 1,]
+      newdata_tt = subset(newdata_tt, select = -count)
+      newdata_tt = newdata_tt[,-6]
       bg_col = rgb(218/255,230/255,237/255)
       blue1 = rgb(0/255,76/255,102/255)
       blue2 = rgb(0,156/255,215/255)
