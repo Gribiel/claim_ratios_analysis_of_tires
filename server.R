@@ -934,8 +934,8 @@ shinyServer(function(input, output) {
       blue2 = rgb(0,156/255,215/255)
       blue3 = rgb(129/255,208/255,242/255)
       ggplot(newdata, aes(经过月, 理赔率, group = 生产日期)) +
-        geom_line(size = 1, aes(linetype = 生产日期, color = 生产日期)) +
-        geom_point(size = 2, aes(color = 生产日期, shape = 生产日期)) +
+        geom_line(size = 1, aes(color = 生产日期)) +
+        geom_point(size = 2, aes(color = 生产日期)) +
         scale_y_continuous(breaks = seq(0,max(newdata$理赔率) + 0.1,0.1), 
                            limits = c(0,max(newdata$理赔率) + 0.1)) +
         scale_x_continuous(breaks = seq(0,max(newdata$经过月),1),
@@ -1064,8 +1064,8 @@ shinyServer(function(input, output) {
     blue2 = rgb(0,156/255,215/255)
     blue3 = rgb(129/255,208/255,242/255)
     ggplot(newdata_tt, aes(经过月, 理赔率, group = 生产日期)) +
-      geom_line(size = 1, aes(linetype = 生产日期, color = 生产日期)) +
-      geom_point(size = 2, aes(color = 生产日期, shape = 生产日期)) +
+      geom_line(size = 1, aes(color = 生产日期)) +
+      geom_point(size = 2, aes(color = 生产日期)) +
       scale_y_continuous(breaks = seq(0,max(newdata_tt$理赔率) + 0.1,0.1), 
                          limits = c(0,max(newdata_tt$理赔率) + 0.1)) +
       scale_x_continuous(breaks = seq(0,max(newdata_tt$经过月),1),
@@ -1198,8 +1198,8 @@ shinyServer(function(input, output) {
     blue2 = rgb(0,156/255,215/255)
     blue3 = rgb(129/255,208/255,242/255)
     ggplot(newdata_tl, aes(经过月, 理赔率, group = 生产日期)) +
-      geom_line(size = 1, aes(linetype = 生产日期, color = 生产日期)) +
-      geom_point(size = 2, aes(color = 生产日期, shape = 生产日期)) +
+      geom_line(size = 1, aes(color = 生产日期)) +
+      geom_point(size = 2, aes(color = 生产日期)) +
       scale_y_continuous(breaks = seq(0,max(newdata_tl$理赔率) + 0.1,0.1), 
                          limits = c(0,max(newdata_tl$理赔率) + 0.1)) +
       scale_x_continuous(breaks = seq(0,max(newdata_tl$经过月),1),
@@ -1333,8 +1333,8 @@ shinyServer(function(input, output) {
     blue2 = rgb(0,156/255,215/255)
     blue3 = rgb(129/255,208/255,242/255)
     ggplot(newdata, aes(经过月, 理赔率, group = 生产日期)) +
-      geom_line(size = 1, aes(linetype = 生产日期, color = 生产日期)) +
-      geom_point(size = 2, aes(color = 生产日期, shape = 生产日期)) +
+      geom_line(size = 1, aes(color = 生产日期)) +
+      geom_point(size = 2, aes(color = 生产日期)) +
       scale_y_continuous(breaks = seq(0,max(newdata$理赔率) + 0.1,0.1), 
                          limits = c(0,max(newdata$理赔率) + 0.1)) +
       scale_x_continuous(breaks = seq(0,max(newdata$经过月),1),
@@ -1382,15 +1382,11 @@ shinyServer(function(input, output) {
       startdate3 = input$dateInput5
       enddate3 = input$dateInput6
       
-      claim_data = claim_data[,c('年', '月', '轮胎品牌', '轮胎规格', '轮胎花纹',
-                                 '轮胎层级', '生产月', 'DOT年号', '生产厂')]
+      claim_data = claim_data[,c('年', '月', '轮胎花纹', '生产月', 'DOT年号', '生产厂')]
       claim_data = unite(claim_data, 生产日期, DOT年号, 生产月, sep = "", remove = TRUE)
       claim_data = unite(claim_data, 理赔日期, 年, 月, sep = "", remove = TRUE)
       claim_data$生产日期 = paste("20", claim_data$生产日期, sep = "")
-      claim_data = unite(claim_data,
-                         轮胎规格,
-                         轮胎品牌, 轮胎规格, 轮胎花纹, 轮胎层级,
-                         sep = " ",remove = TRUE)
+
       claim_data = claim_data[claim_data$生产厂 == input$selectizeInput2,]
       claim_data$理赔日期 = as.yearmon(as.character(claim_data$理赔日期), "%Y%m")
       claim_data$生产日期 = as.yearmon(as.character(claim_data$生产日期), "%Y%m")
@@ -1457,8 +1453,8 @@ shinyServer(function(input, output) {
       blue2 = rgb(0,156/255,215/255)
       blue3 = rgb(129/255,208/255,242/255)
       ggplot(newdata_tt, aes(经过月, 理赔率, group = 生产日期)) +
-        geom_line(size = 1, aes(linetype = 生产日期, color = 生产日期)) +
-        geom_point(size = 2, aes(color = 生产日期, shape = 生产日期)) +
+        geom_line(size = 1, aes(color = 生产日期)) +
+        geom_point(size = 2, aes(color = 生产日期)) +
         scale_y_continuous(breaks = seq(0,max(newdata_tt$理赔率) + 0.1,0.1), 
                            limits = c(0,max(newdata_tt$理赔率) + 0.1)) +
         scale_x_continuous(breaks = seq(0,max(newdata_tt$经过月),1),
@@ -1577,8 +1573,8 @@ shinyServer(function(input, output) {
       blue2 = rgb(0,156/255,215/255)
       blue3 = rgb(129/255,208/255,242/255)
       ggplot(newdata_tt, aes(经过月, 理赔率, group = 生产日期)) +
-        geom_line(size = 1, aes(linetype = 生产日期, color = 生产日期)) +
-        geom_point(size = 2, aes(color = 生产日期, shape = 生产日期)) +
+        geom_line(size = 1, aes(color = 生产日期)) +
+        geom_point(size = 2, aes(color = 生产日期)) +
         scale_y_continuous(breaks = seq(0,max(newdata_tt$理赔率) + 0.1,0.1), 
                            limits = c(0,max(newdata_tt$理赔率) + 0.1)) +
         scale_x_continuous(breaks = seq(0,max(newdata_tt$经过月),1),
@@ -1697,8 +1693,8 @@ shinyServer(function(input, output) {
       blue2 = rgb(0,156/255,215/255)
       blue3 = rgb(129/255,208/255,242/255)
       ggplot(newdata_tt, aes(经过月, 理赔率, group = 生产日期)) +
-        geom_line(size = 1, aes(linetype = 生产日期, color = 生产日期)) +
-        geom_point(size = 2, aes(color = 生产日期, shape = 生产日期)) +
+        geom_line(size = 1, aes(color = 生产日期)) +
+        geom_point(size = 2, aes(color = 生产日期)) +
         scale_y_continuous(breaks = seq(0,max(newdata_tt$理赔率) + 0.1,0.1), 
                            limits = c(0,max(newdata_tt$理赔率) + 0.1)) +
         scale_x_continuous(breaks = seq(0,max(newdata_tt$经过月),1),
@@ -1828,8 +1824,8 @@ shinyServer(function(input, output) {
       blue2 = rgb(0,156/255,215/255)
       blue3 = rgb(129/255,208/255,242/255)
       ggplot(newdata_tt, aes(经过月, 理赔率, group = 生产日期)) +
-        geom_line(size = 1, aes(linetype = 生产日期, color = 生产日期)) +
-        geom_point(size = 2, aes(color = 生产日期, shape = 生产日期)) +
+        geom_line(size = 1, aes(color = 生产日期)) +
+        geom_point(size = 2, aes(color = 生产日期)) +
         scale_y_continuous(breaks = seq(0,max(newdata_tt$理赔率) + 0.1,0.1), 
                            limits = c(0,max(newdata_tt$理赔率) + 0.1)) +
         scale_x_continuous(breaks = seq(0,max(newdata_tt$经过月),1),
@@ -1839,7 +1835,7 @@ shinyServer(function(input, output) {
         scale_fill_manual(values = c(blue1, blue2 , blue3)) +
         theme(title = element_text(family = "GB1", size = rel(1.5), color = "black",
                                    lineheight = 0.2),                     
-              plot.title = element_text(hjust = 0.5, size = rel(2), face = "bold"),
+              plot.title = element_text(hjust = 0.5, size = rel(1), face = "bold"),
               legend.position = 'top',
               legend.title = element_blank(),
               legend.key = element_blank(),
